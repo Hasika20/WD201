@@ -2,14 +2,14 @@
     "development": {
       "username": "postgres",
       "password": "Hasika@2005",
-      "database": "todo_dev",
+      "database": "todo_db_dev",
       "host": "127.0.0.1",
       "dialect": "postgres"
     },
     "test": {
       "username": "postgres",
       "password": "Hasika@2005",
-      "database": "todo_test",
+      "database": "todo_db_test",
       "host": "127.0.0.1",
       "dialect": "postgres"
     },
