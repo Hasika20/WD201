@@ -1,42 +1,11 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>To-Do Manager</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <!--<style src="https://cdn.tailwindcss.com/"></style>-->
-  <link rel="stylesheet" href="./css/styles.css" />
-</head>
-
-<body>
-  <div class="grid grid-cols-6">
-    <div class="col-start-3 col-span-2">
-      <%- include('header.ejs') %>
-        <form action="">
-          <div class="flex gap-2 py-4">
-            <div class="flex-auto">
-              <input type="text" placeholder="what's next?"
-                class="border border-gray-300 rounded text-gray-900 w-full text-sm p-2" required />
-            </div>
-            <div class="flex-auto">
-              <input type="date" class="border border-gray-300 text-gray-900 rounded w-full leading-5 text-sm p-2" />
-            </div>
-            <div class="flex-none">
-              <button type="submit" class="bg-green-500 text-white px-5 py-1.5 font-medium mr-2 mb-2 rounded">
-                Add
-              </button>
-            </div>
-          </div>
-        </form>
-        <div>
-          <%- include('todos.ejs', { title: "Overdue" , Due: overdueTodos, id: "count-overdue" }) %>
-            <%- include('todos.ejs', { title: "Due Today" , Due: dueTodayTodos, id: "count-due-today" }) %>
-              <%- include('todos.ejs', { title: "Due Later" , Due: dueLaterTodos, id: "count-due-later" }) %>
-        </div>
-    </div>
-  </div>
-</body>
-
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="./css/styles.css" rel="stylesheet">
+    </head>
+    <body>
+        <%- include('header.ejs') %>
+        <%- include('todos.ejs') %>
+        <%- include('footer.ejs') %>
+    </body>
 </html>
