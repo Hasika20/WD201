@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
@@ -10,11 +12,10 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
-
     static addTodo({ title, dueDate }) {
       return this.create({ title: title, dueDate: dueDate, completed: false });
     }
-    static getAllTodos() {
+    static getTodo() {
       return this.findAll();
     }
 
@@ -31,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Todo",
-    }
+    },
   );
   return Todo;
 };
