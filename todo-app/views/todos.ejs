@@ -1,14 +1,9 @@
 <table>
-    <thead>
+    <% for(var i=0;i < allTodos.length;i++) {%>
         <tr>
-            <th>Title</th>
+            <td>
+                <%= allTodos[i].title %>
+            </td>
         </tr>
-    </thead>
-    <tbody>
-    <% for( var i=0;i<todos.length;i++){%>
-    <tr>
-        <td><%=todos[i].title%></td>
-    </tr>
-    <%}%>
-    </tbody>
+        <% } %>
 </table>
