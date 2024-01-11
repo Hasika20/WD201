@@ -1,8 +1,123 @@
 body {
-    font-family: sans-serif;
-    background: white;
+  /* background-color: blueviolet; */
+  background: url(../Images/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg);
+  background-size: cover;
+  font-family: 'Times New Roman', Times, serif;
+  color: purple;
+  box-sizing: border-box;
 }
 
-.Todo-item:hover .trash-icon {
-    display: block;
+/*
+.container {
+  height: 100%;
+  display: flex;
+  width: 100%;
+  min-height: 20px;
+  /* align-items: center; */
+/* justify-content: center; */
+
+/*
+table {
+  position: relative;
+  margin-top: 150px;
+  left: auto;
+  height: fit-content;
+  height: 200%;
+  width: 200%;
+  backdrop-filter: blur(50px);
+  padding: 20px;
+  padding-top: 30px;
+}
+
+.Todos {
+  align-items: center;
+  justify-content: center;
+  min-height: 10px;
+
+}
+
+
+*/
+/*
+.Todos {
+  align-items: center;
+  justify-content: center;
+  min-height: 10px;
+  backdrop-filter: blur(50px);
+  height: 200px;
+  width: 200px;
+}
+
+.input-container {
+  position: relative;
+  margin: 50px auto;
+  width: 200px;
+}
+
+.input-container input[type="text"] {
+  font-size: 20px;
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  padding: 5px 0;
+  background-color: transparent;
+  outline: none;
+}
+
+.input-container .label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #ccc;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.input-container input[type="text"]:focus~.label,
+.input-container input[type="text"]:valid~.label {
+  top: -20px;
+  font-size: 16px;
+  color: #333;
+}
+
+.input-container .underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background-color: #333;
+  transform: scaleX(0);
+  transition: all 0.3s ease;
+}
+
+.input-container input[type="text"]:focus~.underline,
+.input-container input[type="text"]:valid~.underline {
+  transform: scaleX(1);
+}
+
+
+@-webkit-keyframes glow {
+  from {
+      text-shadow: 0 0 10px #fff0 0 20px #4cd3ff, 0 0 30px #4cd3ff 0 0 40px #4cd3ff, 0 0 50px #4cd3ff, 0 0 60px #4cd3ff, 0 0 70px #4cd3ff;
+  }
+
+  to {
+      text-shadow: 0 0 20px #fff, 0 0 30px #4cd3ff, 0 0 40px #4cd3ff, 0 0 50px #4cd3ff, 0 0 60px #4cd3ff, 0 0 70px #4cd3ff, 0 0 80px #4cd3ff;
+  }
+}
+
+*/
+.header {
+  color: blue;
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+.footer {
+  color: purple;
+  position: relative;
+}
+
+.Todo-Item:hover .trash-icon {
+  display: block;
 }
