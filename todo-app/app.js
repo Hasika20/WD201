@@ -17,11 +17,11 @@ app.get("/", async (req, res) => {
   let allTodos = await Todo.getTodo();
   if (req.accepts("html")) {
     res.render("index", {
-      allTodos,
+      allTodos
     });
   } else {
     res.json({
-      allTodos,
+      allTodos
     });
   }
 });
@@ -50,13 +50,19 @@ app.get("/todos/:id", async function (request, response) {
 
 app.post("/todos", async function (request, response) {
   try {
-    const todo = await Todo.addTodo(request.body);
-    return response.json(todo);
+      const newTodo = await Todo.addTodo({
+          title: request.body.title,
+          dueDate: request.body.dueDate,
+      });
+
+      let allTodos = await Todo.getTodo();
+      return response.render("index", { allTodos });
   } catch (error) {
-    console.log(error);
-    return response.status(422).json(error);
+      console.log(error);
+      return response.status(422).json(error);
   }
 });
+
 
 app.put("/todos/:id/markAsCompleted", async function (request, response) {
   const todo = await Todo.findByPk(request.params.id);
