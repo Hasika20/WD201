@@ -1,0 +1,47 @@
+<div class="inset-y-0">
+    <!-- Overdue -->
+    <div class="flex mt-5">
+        <h5 class="w-14 text-black-600 font-semibold ">Overdue</h5>
+        <div class="w-6 h-5 bg-purple-500 rounded-lg-500 flex items-center justify-center rounded border border-gray-900 flex-none ml-3">
+            <span class="text-black text-sm"><%= overdueTodos.length %></span>
+        </div>
+    </div>
+    <div class="flex w-fit items-center my-2 px-2 py-1 pr-2 rounded hover:bg-gray-10">
+        <div class="text-sm text-blue-700 cursor-pointer">
+            <% include('todos.ejs', { allTodo: overdueTodos }) %>
+        </div>
+    </div>
+
+    <!-- Due Today -->
+    <div class="flex mt-5">
+        <h5 class="text-black-600 font-semibold ">Due Today</h5>
+        <div class="w-6 h-5 bg-purple-500 rounded-lg-500 flex items-center justify-center rounded border border-gray-900 flex-none ml-3">
+            <span class="text-black text-sm"><%= dueTodayTodos.length %></span>
+        </div>
+    </div>
+    <div class="text-sm text-blue-700 cursor-pointer">
+        <% include('todos.ejs', { allTodo: dueTodayTodos }) %>
+    </div>
+
+    <!-- Due Later -->
+    <div class="flex mt-5">
+        <h5 class="text-black-600 font-semibold ">Due Later</h5>
+        <div class="w-6 h-5 bg-purple-500 rounded-lg-500 flex items-center justify-center rounded border border-gray-900 flex-none ml-3">
+            <span class="text-black text-sm"><%= dueLaterTodos.length %></span>
+        </div>
+    </div>
+    <div class="text-sm text-blue-700 cursor-pointer">
+        <% include('todos.ejs', { allTodo: dueLaterTodos }) %>
+    </div>
+
+    <!-- Completed Items -->
+    <div class="flex mt-5">
+        <h5 class="text-black-600 font-semibold ">Completed Items</h5>
+        <div class="w-6 h-5 bg-purple-500 rounded-lg-500 flex items-center justify-center rounded border border-gray-900 flex-none ml-3">
+            <span class="text-black text-sm"><%= completed.length %></span>
+        </div>
+    </div>
+    <div class="text-sm text-blue-700 cursor-pointer">
+        <% include('todos.ejs', { allTodo: completed }) %>
+    </div>
+</div>
