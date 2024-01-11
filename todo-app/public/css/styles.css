@@ -1,10 +1,27 @@
-* {
-  margin: 0px;
-  padding: 0px;
-  box-sizing: border-box;
-}
 
-body {
-  background-color: cornsilk;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing:content-box;
+  }
+  
+  body {
+    background-color: #a15e5e;
+    font-family:Arial, Helvetica, sans-serif;
+  }
+  
+  header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  h1 {
+    font-size: 2em;
+    color: #e14f4f;
+  }
+  
+  footer {
+    text-align: center;
+    margin-top: 30px;
+    color: #4710ab;
+  }
