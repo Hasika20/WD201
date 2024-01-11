@@ -13,21 +13,22 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.set("view engine", "ejs");
 
-app.get("/", async (req, res) => {
+app.get("/", async (requeset, response) => {
   let allTodos = await Todo.getTodo();
-  if (req.accepts("html")) {
-    res.render("index", {
-      allTodos
+  if (requeset.accepts("html")) {
+    response.render("index", {
+      allTodos,
     });
   } else {
-    res.json({
-      allTodos
+    response.json({
+      allTodos,
     });
   }
 });
 
 app.get("/todos", async function (_request, response) {
   console.log("Processing list of all Todos ...");
+  // FILL IN YOUR CODE HERE
   try {
     let Todos = await Todo.findAll();
     return response.send(Todos);
@@ -35,7 +36,9 @@ app.get("/todos", async function (_request, response) {
     console.log(error);
     return response.status(422).json(error);
   }
-  
+  // First, we have to query our PostgerSQL database using Sequelize to get list of all Todos.
+  // Then, we have to respond with all Todos, like:
+  // response.send(todos)
 });
 
 app.get("/todos/:id", async function (request, response) {
@@ -50,19 +53,13 @@ app.get("/todos/:id", async function (request, response) {
 
 app.post("/todos", async function (request, response) {
   try {
-      const newTodo = await Todo.addTodo({
-          title: request.body.title,
-          dueDate: request.body.dueDate,
-      });
-
-      let allTodos = await Todo.getTodo();
-      return response.render("index", { allTodos });
+    const todo = await Todo.addTodo(request.body);
+    return response.json(todo);
   } catch (error) {
-      console.log(error);
-      return response.status(422).json(error);
+    console.log(error);
+    return response.status(422).json(error);
   }
 });
-
 
 app.put("/todos/:id/markAsCompleted", async function (request, response) {
   const todo = await Todo.findByPk(request.params.id);
