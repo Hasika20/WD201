@@ -13,7 +13,7 @@ function extractCsrf(res) {
 describe("Todo Application", function () {
   beforeAll(async () => {
     await db.sequelize.sync({ force: true });
-    server = app.listen(4000, () => {});
+    server = app.listen(3000, () => {});
     agent = request.agent(server);
   });
 
@@ -30,12 +30,12 @@ describe("Todo Application", function () {
     const res = await agent.get("/");
     const token = extractCsrf(res);
     const response = await agent.post("/todos").send({
-      title: "Buy milk",
+      title: "Eat apple",
       dueDate: new Date().toISOString().split("T")[0],
       completed: false,
       _csrf: token,
     });
-    expect(response.statusCode).toBe(302); //302 is success code for http redirect
+    expect(response.statusCode).toBe(302); 
   });
 
   test("Toogles completion status)if true then do false and vice versa", async () => {
@@ -43,7 +43,7 @@ describe("Todo Application", function () {
     let token = extractCsrf(res);
     //creating todo
     await agent.post("/todos").send({
-      title: "Buy milk",
+      title: "Eat apple",
       dueDate: new Date().toISOString().split("T")[0],
       completed: false,
       _csrf: token,
