@@ -1,20 +1,29 @@
 body {
-  /* background-color: blueviolet; */
-  background: url(../Images/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg);
-  background-size: cover;
-  font-family: 'Times New Roman', Times, serif;
-  color: purple;
-  box-sizing: border-box;
+  margin: 0px;
+  background: white;
+  font-family: "Courier New", Courier, monospace;
+  /* font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
+  width: 100vw;
+  height: 100vw;
+  /* background: linear-gradient(30deg, #f09478, #e980a8, #b67890, #a15b76); */
+  background-color: mintcream;
+  background-size: 400% 400%;
+  animation: gradient 10s ease infinite;
+  height: 100vh;
 }
 
-.header {
-  color: blue;
-  animation: glow 1s ease-in-out infinite alternate;
-}
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
 
-.footer {
-  color: purple;
-  position: relative;
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .Todo-Item:hover .trash-icon {
