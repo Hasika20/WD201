@@ -14,6 +14,8 @@ module.exports = {
         table: "Users",
         field: "id",
       },
+      onDelete: "CASCADE", // Add this line
+      onUpdate: "CASCADE", // Add this line if needed
     });
     /**
      * Add altering commands here.
