@@ -10,7 +10,7 @@
     "test": "NODE_ENV=test jest --detectOpenHandles",
     "prepare": "husky install todo-cli/.husky"
   },
-  "author": "hasika <hasika20.2005@gmail.com",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
