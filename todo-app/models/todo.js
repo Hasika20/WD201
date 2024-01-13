@@ -1,7 +1,5 @@
-/* eslint-disable*/
 "use strict";
-const { Model, Op } = require("sequelize");
-
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Todo extends Model {
     /**
@@ -15,102 +13,28 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "userId",
       });
     }
-
-    static addTodo({ title, dueDateTime, userId }) {
-      return this.create({
-        title: title,
-        dueDateTime: dueDateTime,
-        completed: false,
-        userId,
-      });
-    }
-
     static getTodos() {
       return this.findAll();
     }
 
-    markAsCompleted() {
-      return this.update({ completed: true });
-    }
-    setCompletionStatus(completed) {
-      if (completed === true) {
-        return this.update({ completed: true });
-      } else {
-        return this.update({ completed: false });
-      }
-    }
-    static completedItem(userId) {
-      return this.findAll({
-        where: {
-          userId,
-          completed: true,
-        },
-      });
-    }
-    // I added the below 3 methods, overdue dueToday and dueLater to implement the todo app in the instaractors way
-    static overdue(userId) {
-      return this.findAll({
-        where: {
-          dueDateTime: {
-            [Op.lt]: new Date(),
-          },
-          userId,
-          completed: false,
-        },
-      });
-    }
-    static dueToday(userId) {
-      return this.findAll({
-        where: {
-          dueDateTime: {
-            [Op.eq]: new Date(),
-          },
-          userId,
-          completed: false,
-        },
-      });
-    }
-    static dueLater(userId) {
-      return this.findAll({
-        where: {
-          dueDateTime: {
-            [Op.gt]: new Date(),
-          },
-          userId,
-          completed: false,
-        },
-      });
+    static addTodo({ title, dueDate, userId }) {
+      return this.create({ title, dueDate, completed: false, userId });
     }
 
-    static async remove(id, userId) {
-      return this.destroy({
-        where: {
-          id,
-          userId,
-        },
-      });
+    setCompletionStatus(value) {
+      return this.update({ completed: value });
     }
   }
   Todo.init(
     {
-      title: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notNull: true,
-          len: 5,
-        },
-      },
-      dueDateTime: {
-        type: DataTypes.DATE,
-        allowNull: false,
-      },
+      title: DataTypes.STRING,
+      dueDate: DataTypes.DATEONLY,
       completed: DataTypes.BOOLEAN,
     },
     {
       sequelize,
       modelName: "Todo",
-    }
+    },
   );
   return Todo;
 };
