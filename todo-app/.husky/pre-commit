@@ -1,4 +1,8 @@
 #!/usr/bin/env sh
+# . "$(dirname -- "$0")/_/husky.sh"
 . "$(dirname -- "$0")/_/husky.sh"
 
-npm test
+cd todo-app && npm test
+npx lint-staged
+npm run precommit
+npx lint-stagged
