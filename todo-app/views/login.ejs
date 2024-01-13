@@ -7,39 +7,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/styles.css">
     <meta name="csrf-token" content="<%= csrfToken %>">
-    
     <script src="https://cdn.tailwindcss.com"></script>
-    <title> 
-        <%= title %>
-    </title>
-</head>
-<body>
-    <div class="grid grid-cols-6">
     
-        <div class="col-start-3 col-span-2">
-            <a href="/"><%- include ('header.ejs') %></a>
-            <h6 class="py-4">Login</h6>
-            <% if(messages && messages.error && messages.error.length > 0)  { %>
-                <% for(var i=0; i<messages.error.length; i++) { %>
-                        <li class="text-red-600"> <%= messages.error[i] %></li>
-                <% } %>
-              <% } %>
-            <form action="/session" method="POST">
-                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                <div class="py-3">
-                    <label for="email">Email</label>
-                    <input type="text" name="email" placeholder="Email" class="border boarder-gray-300 text-gray-900 rounded p-2 w-full">
-                </div>
-                <div class="py-3">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" placeholder="password" class="border boarder-gray-300 text-gray-900 rounded p-2 w-full">
-                </div>
-                <div class="py-3">
-                    <button type="submit" class="bg-blue-500 hover:bg-blue-800 text-white rounded py-2 px-5 font-meduim">Sign In</button>
-                    
-                </div>
-            </form>
+    <title><%= title %></title>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 70%; /* Adjusted width */
+            max-width: 400px;
+        }
+
+        h6 {
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .text-red {
+            color: #ff0000;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container mx-auto">
+
+        <div class="grid grid-cols-6">
+
+            <div class="col-start-3 col-span-2">
+                <a href="/"> <%- include ('header.ejs') %></a>
+                <h6 class="py-4">Login</h6>
+                <% if(messages && messages.error && messages.error.length > 0)  { %>
+                    <% for(var i=0; i<messages.error.length; i++) { %>
+                            <li class="text-red-600"> <%= messages.error[i] %></li>
+                    <% } %>
+                  <% } %>
+                <form action="/session" method="POST">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <div class="py-3">
+                        <label for="email">Email</label>
+                        <input type="text" name="email" placeholder="Email" class="rounded p-2">
+                    </div>
+                    <div class="py-3">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" placeholder="Password" class="rounded p-2">
+                    </div>
+                    <div class="py-3">
+                        <button type="submit" class="bg-blue-500 hover:bg-blue-800 text-white rounded py-2 px-5 font-medium">Sign In</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
+
 </body>
+
 </html>
