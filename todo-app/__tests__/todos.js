@@ -2,7 +2,6 @@ const request = require("supertest");
 var cheerio = require("cheerio");
 const db = require("../models/index");
 const app = require("../app");
-// eslint-disable-next-line no-unused-vars
 const { response } = require("../app");
 
 let server, agent;
