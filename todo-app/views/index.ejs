@@ -5,18 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="<%= csrfToken %>">
-    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <title> <%= title %></title>
+    <title>To-do manager</title>
 </head>
-<body style="display: flex; justify-content: center; align-items: center; height: 100vh;">
-    <div class="grid grid-cols-6">
-        <div class="col-start-3 col-span-2" style="background: rgb(228, 178, 218); box-shadow: 1px 0px 3px 1px black; padding: 20px; border-radius: 4px;">
-            <%- include ('notifications.ejs') %>
-            <%- include ('header.ejs') %>
-            <p class="py-2 text-lg">New here..? <a href="/signup" class="text-green-600 font-semibold hover:underline">Sign-up here</a></p>
-            <p class="py-2 text-lg">Already have an account..? <a href="/login" class="text-green-600 font-semibold hover:underline">Sign-in</a></p>
-            <%- include ('footer.ejs') %>
+<body class="bg-gray-100 mt-40">
+    <div class="container mx-auto p-2">
+        <div class="grid grid-cols-1 md:grid-cols-3">
+            <div class="md:col-start-2 md:col-span-1">
+                <div class="p-4 bg-pink-200 rounded-md shadow-md text-center">
+                    <%- include('header.ejs') %>
+                    <p class="py-2 text-2xl font-semibold">Welcome to To-Do Manager</p>
+                    <p class="py-2">Start managing your tasks with ease.</p>
+                    <p class="py-2">New here? <a href="/signup" class="text-green-600">Sign-up now</a></p>
+                    <p class="py-2">Already have an account? <a href="/login" class="text-green-600">Sign-in</a></p>
+                    <form action="/todos" method="post"></form>
+                </div>
+            </div>
         </div>
     </div>
 </body>
