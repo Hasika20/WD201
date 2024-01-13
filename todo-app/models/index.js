@@ -1,5 +1,5 @@
-/* eslint-disable  */
 "use strict";
+
 const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
@@ -15,9 +15,10 @@ if (config.use_env_variable) {
 } else {
   sequelize = new Sequelize(
     config.database,
-    config.username, // here the user name is root
+    config.username,
     config.password,
-    config
+    // ssl = true,
+    config,
   );
 }
 
@@ -33,7 +34,7 @@ fs.readdirSync(__dirname)
   .forEach((file) => {
     const model = require(path.join(__dirname, file))(
       sequelize,
-      Sequelize.DataTypes
+      Sequelize.DataTypes,
     );
     db[model.name] = model;
   });
