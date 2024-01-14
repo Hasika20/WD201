@@ -1,24 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
 
-     
-           <div>
-            <h5>
-              <%= title %> <span id="<%= indicatorId %>" class="bg-gray-100 ml-2 px-2"><%= data.length %></span>
-            </h5>
-            <ul class="list-none">
-              <% for(var i = 0; i < data.length; i++) { %>
-              <li class="Todo-Item">
-                <div class="flex items-center w-fit ml-2 py-1 px-2 my-1 todoItem bg-rounded hover:bg-purple-100">
-                  <input type="checkbox" id="<%= data[i].id %>" <%= data[i].completed ?"checked" : "" %> onclick="markTodo(<%= data[i].id %>,<%= !data[i].completed %>)" class="w-4 h-4 bg-gray-100 text-blue-100" />
-                  <label for="<%= data[i].id %>"  class="ml-2 text-sm text-gray-600 curser-pointer">
-                    <%= data[i].title %>
-                  </label>
-                  <a href="#" class="hidden trash-icon ml-2" onclick="deleteTodo(<%= data[i].id %>)">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                    </svg>
-                  </a>
-                </div>
-              </li>
-              <% } %>
-            </ul>
-          </div>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/styles.css">
+    <meta name="csrf-token" content="<%= csrfToken %>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        function updateTodo(id) {
+            // the id is todo-checkbox-id 
+            var completed = document.getElementById(`todo-checkbox-${id}`).checked;
+
+            fetch(`/todos/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    _csrf: token,
+                    completed: completed
+                })
+            }).then(res => {
+                if (res.ok) {
+                    window.location.reload()
+                }
+            })
+                .catch((err) => console.error(err))
+        }
+        function deleteTodo(id) {
+            fetch(`/todos/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    _csrf: token,
+                })
+            }).then(res => {
+                if (res.ok) {
+                    window.location.reload()
+                }
+            }).catch((err) => console.error(err))
+        }
+    </script>
+    <title>To-do Manager</title>
+</head>
+
+<body>
+
+
+    <div class="grid grid-cols-6">
+        <div class="col-start-1 col-span-2">
+            <div class="border-4 border-red-500 rounded bg-purple-50">
+                <h1>
+                    Current Tasks
+                </h1>
+
+            </div>
+
+        </div>
+        <div class="col-start-3 col-span-2">
+            <div class="border-4 border-red-500 rounded bg-purple-50">
+                <a href="/"><%- include ('header.ejs') %></a>
+
+                <!--wellcome message-->
+                <h1 class="text-2xl font-bold text-green-400">Hello, <%= user.firstName %>! Welcome.</h1>
+
+                <form action="/todos" method="post">
+
+                    <input type="hidden" name="_csrf" value="<%= csrfToken%>" /> <!--this is for csrf token-->
+
+                    <div class="flex flex-col gap-2 py-4">
+                        <div class="flex-auto">
+                            <input type="text" name="title" placeholder="What's new?"
+                                class="border boarder-gray-300 rounded text-gray-900 w-full p-3 text-base" />
+                        </div>
+                        <div class="flex-fit">
+                            <input type="datetime-local" name="dueDateTime"
+                                class="border boarder-gray-300 rounded text-gray-900 w-full p-2 text-sm leading-4">
+                        </div>
+
+                        <div class="flex-none">
+                            <button type="submit"
+                                class="text-cyan-50 bg-green-600 px-5 py-1.5 rounded font-medium mr-2 mb">Add</button>
+                        </div>
+                    </div>
+
+                </form>
+                <% if(messages && messages.error && messages.error.length> 0) { %>
+                    <% for(var i=0; i<messages.error.length; i++) { %>
+                        <li class="text-red-600">
+                            <%= messages.error[i] %>
+                        </li>
+                        <% } %>
+                            <% } %>
+
+                                <div>
+                                    <%- include('todo.ejs', {title: "Overdue" , data: overdue}) %>
+                                        <%- include('todo.ejs', {title: "Due Today" , data: dueToday}) %>
+                                            <%- include('todo.ejs', {title: "Due Later" , data: dueLater}) %>
+                                                <%- include('todo.ejs', {title: "Completed Items" , data:
+                                                    completedItem}) %>
+                                </div>
+                                <p class="py-2">Log out: <a class=" text-green-400" href="/signout">sign-out</a></p>
+                                <%- include('footer.ejs') %>
+            </div>
+        </div>
+
+        <div class="col-start-5 col-span-2">
+            <div class="border-4 border-red-500 rounded bg-purple-50">
+                <h1>
+                    History and Statistics
+                </h1>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
