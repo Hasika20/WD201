@@ -1,37 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="csrf-token" content="<%= csrfToken %>" />
-  <title>Todo Manager</title>
-  <link rel="stylesheet" href="./css/styles.css" />
-  <style>
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-    }
-
-    .content-box {
-      max-width: 400px; /* Adjust the width as needed */
-      padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Add other necessary styles */
-  </style>
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/styles.css">
+    <meta name="csrf-token" content="<%= csrfToken %>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <title>To-do Manager</title>
 </head>
+
 <body>
-  <div class="content-box">
-    <% include("header.ejs") %>
-    <h6 class="m-6">New Here..? <a class="text-green-600" href="/signup">Create a new To-Do account</a></h6>
-    <h6 class="m-6">Already have an account..? <a class="text-green-600" href="/login">Sign in here(if an existing user)</a></h6>
-  </div>
+
+
+    <div class="grid grid-cols-6">
+
+        <div class="col-start-3 col-span-2">
+            <a href="/todos"><%- include ('header.ejs') %></a>
+            
+
+            <p class="py-2">Welcome to To-Do Manager</p>
+            <p class="py-2" >new Here ? <a class=" text-green-400" href="/signup">sign-up</a></p>
+            <p class="py-2">Already User ? <a class=" text-green-400" href="/login">sign-in</a></p>
+
+        </div>
+    </div>
 </body>
+
 </html>
