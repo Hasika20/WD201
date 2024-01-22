@@ -1,24 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset = "UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="csrf-token" content="<%= csrfToken %>">
-        <title>To-Do Manager</title>
-        <script src = "https://cdn.tailwindcss.com"></script>
-        <link href = './css/styles.css' rel="stylesheet">
-    </head>
-    <body>
-        <div class="grid grid-cols-6">
-            <div class="col-start-3 col-span-2" class = "Todo-list">
-                <%- include('header.ejs') %>
-                <p class="py-2">Welcome to the TODO-Manager</p>
-                <p class="py-2">New Here? <a href = "/signup" class="text-green-500">Sign-Up Now</a></p>
-                <p class="py-2">Already Have an Account? <a href="/login" class="text-green-500">Sign-In</a></p>
-                <br/>
-                <%- include('footer.ejs') %>
-            </div>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="<%= csrfToken %>">
+    <link rel="stylesheet" href="./css/styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Todo App</title>
+    <script>
+        var token = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+        const updateTodo = (id) => {
+            const bool = document.querySelector(`#checkbox-${id}`).checked; 
+            console.log(bool);
+            fetch(`/todos/${id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body : JSON.stringify({
+                    _csrf : token,
+                    completed : bool
+                })
+            })
+            .then((res) => {
+                if (res.ok) {
+                    window.location.reload();
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        };
+        function deleteTodo(id) {
+            fetch(`/todos/${id}`, {
+                method: "delete",
+                headers: { "Content-type": "application/json"},
+                body: JSON.stringify({
+                    "_csrf":token
+                })
+            })
+            .then((res) => {
+                if(res.ok) {
+                    window.location.reload()
+                }
+            }).catch((error) => console.error(error))
+        }
+    </script>
+</head>
+<body>
+    <div class="grid grid-cols-6">
+        <div class="col-start-3 col-span-2">
+            <%- include ('header.ejs') %>
+            <form action="/todos" method="post">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>" id="csrfToken">
+                <div class="flex gap-2 py-4">
+                    <div class="flex-auto">
+                        <input type="text" name="title" placeholder="What's next?" class="border border-gray-300 rounded text-gray-900 w-full p-2 text-sm" required/>
+                    </div>
+                    <div class="flex-auto">
+                        <input type="date" name="dueDate" class="border border-gray-300 rounded text-gray-900 w-full p-2 text-sm leading-4" required />
+                    </div>
+                    <div class="flex-none">
+                        <button type="submit" class="bg-green-600 text-white px-5 py-1.5 rounded font-medium mr-2 mb-2" >Add</button>
+                    </div>
+                </div>
+            </form>
+            <%- include('todos.ejs', { title: "Overdue", data: overdue, ID:"count-overdue" }) %>
+            <%- include('todos.ejs', { title: "Due Today", data: dueToday, ID:"count-due-today" }) %>
+            <%- include('todos.ejs', { title: "Due Later", data: dueLater, ID:"count-due-later" }) %>
+            <%- include('todos.ejs', { title: "Completed Items", data: completedItems, ID:"count-completed" }) %>
         </div>
-    </body>
+    </div>
+</body>
 </html>
