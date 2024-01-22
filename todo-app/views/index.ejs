@@ -7,69 +7,17 @@
     <meta name="csrf-token" content="<%= csrfToken %>">
     <link rel="stylesheet" href="./css/styles.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Todo App</title>
-    <script>
-        var token = document.querySelector("meta[name='csrf-token']").getAttribute("content");
-        const updateTodo = (id) => {
-            const bool = document.querySelector(`#checkbox-${id}`).checked; 
-            console.log(bool);
-            fetch(`/todos/${id}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body : JSON.stringify({
-                    _csrf : token,
-                    completed : bool
-                })
-            })
-            .then((res) => {
-                if (res.ok) {
-                    window.location.reload();
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-        };
-        function deleteTodo(id) {
-            fetch(`/todos/${id}`, {
-                method: "delete",
-                headers: { "Content-type": "application/json"},
-                body: JSON.stringify({
-                    "_csrf":token
-                })
-            })
-            .then((res) => {
-                if(res.ok) {
-                    window.location.reload()
-                }
-            }).catch((error) => console.error(error))
-        }
-    </script>
+    <title> <%= title %></title>
 </head>
-<body>
+<body style="display: flex; justify-content: center; align-items: center; height: 100vh;">
     <div class="grid grid-cols-6">
-        <div class="col-start-3 col-span-2">
+        <div class="col-start-3 col-span-2" style="background: rgb(255, 255, 194); box-shadow: 1px 0px 3px 1px black; padding: 20px; border-radius: 4px;">
+            <%- include ('notifications.ejs') %>
             <%- include ('header.ejs') %>
-            <form action="/todos" method="post">
-                <input type="hidden" name="_csrf" value="<%= csrfToken %>" id="csrfToken">
-                <div class="flex gap-2 py-4">
-                    <div class="flex-auto">
-                        <input type="text" name="title" placeholder="What's next?" class="border border-gray-300 rounded text-gray-900 w-full p-2 text-sm" required/>
-                    </div>
-                    <div class="flex-auto">
-                        <input type="date" name="dueDate" class="border border-gray-300 rounded text-gray-900 w-full p-2 text-sm leading-4" required />
-                    </div>
-                    <div class="flex-none">
-                        <button type="submit" class="bg-green-600 text-white px-5 py-1.5 rounded font-medium mr-2 mb-2" >Add</button>
-                    </div>
-                </div>
-            </form>
-            <%- include('todos.ejs', { title: "Overdue", data: overdue, ID:"count-overdue" }) %>
-            <%- include('todos.ejs', { title: "Due Today", data: dueToday, ID:"count-due-today" }) %>
-            <%- include('todos.ejs', { title: "Due Later", data: dueLater, ID:"count-due-later" }) %>
-            <%- include('todos.ejs', { title: "Completed Items", data: completedItems, ID:"count-completed" }) %>
+            <p class="py-2 text-xl italic">A simple <span class="underline font-semibold">Todo manager</span> app for managing your tasks.</p>
+            <p class="py-2 text-lg">🚀 New here? <a href="/signup" class="text-green-600 font-semibold hover:underline">Sign-up here</a></p>
+            <p class="py-2 text-lg">🚀 Already have an account? <a href="/login" class="text-green-600 font-semibold hover:underline">Sign-in</a></p>
+            <%- include ('footer.ejs') %>
         </div>
     </div>
 </body>
